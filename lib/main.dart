@@ -3,6 +3,7 @@ import 'appointmentPage.dart';
 import 'ticketPage.dart';
 import 'recallPage.dart';
 import 'contactPage.dart';
+import 'calendar.dart';
 
 void main() {
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
@@ -11,6 +12,7 @@ void main() {
     '/contact': (context) => const ContactPage(),
     '/ticket': (context) => const TicketPage(),
     '/recall': (context) => const RecallPage(),
+    '/calendar': (context) => const Calendar(),
   }));
 }
 

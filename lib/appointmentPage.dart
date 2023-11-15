@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AppointmentPage extends StatefulWidget {
   @override
@@ -13,11 +14,23 @@ class _AppointmentPageState extends State<AppointmentPage> {
         title: const Text('Appointment Page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/');
-          },
-          child: const Text('Go back!'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/');
+              },
+              child: const Text('Go back!'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/calendar');
+              },
+              child: const Text('View Calendar'),
+            ),
+          ],
         ),
       ),
     );
