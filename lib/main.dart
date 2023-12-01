@@ -7,7 +7,7 @@ import 'contactPage.dart';
 void main() {
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
     '/': (context) => const HomeScreen(),
-    '/appointment': (context) => AppointmentPage(),
+    '/appointment': (context) => const AppointmentPage(),
     '/contact': (context) => const ContactPage(),
     '/ticket': (context) => const TicketPage(),
     '/recall': (context) => const RecallPage(),

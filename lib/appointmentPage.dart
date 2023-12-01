@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class AppointmentPage extends StatefulWidget {
+  const AppointmentPage({super.key});
+
   @override
   State<StatefulWidget> createState() => _AppointmentPageState();
 }
@@ -24,7 +26,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("selected day: " + today.toString().split(" ")[0]),
+            Text("selected day: ${today.toString().split(" ")[0]}"),
             Container(
                 child: TableCalendar(
               headerStyle: const HeaderStyle(
