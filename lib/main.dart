@@ -3,12 +3,14 @@ import 'appointmentPage.dart';
 import 'ticketPage.dart';
 import 'recallPage.dart';
 import 'contactPage.dart';
+import 'appointmentList.dart';
 
 void main() {
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
     '/': (context) => const HomeScreen(),
     '/appointment': (context) => const AppointmentPage(),
-    '/contact': (context) => const ContactPage(),
+    '/appointmentList': (context) => TodayListScreen(),
+    '/contact': (context) => const ContactListScreen(),
     '/ticket': (context) => const TicketPage(),
     '/recall': (context) => const RecallPage(),
   }));
