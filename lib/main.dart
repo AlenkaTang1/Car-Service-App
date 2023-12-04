@@ -3,8 +3,14 @@ import 'appointmentPage.dart';
 import 'ticketPage.dart';
 import 'recallPage.dart';
 import 'contactPage.dart';
+import 'package:path/path.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-void main() {
+
+Future<Database>? ticketDatabase;
+
+void main() async {
+  ticketDatabase = createDatabase();
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
     '/': (context) => const HomeScreen(),
     '/appointment': (context) => const AppointmentPage(),
@@ -14,6 +20,36 @@ void main() {
   }));
 }
 
+Future<Database> createDatabase() async {
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+  WidgetsFlutterBinding.ensureInitialized();
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'ticket_database.db'),
+
+    onCreate: (db, version) {
+      return db.execute(
+        '''
+        CREATE TABLE tickets (
+          ticketID INTEGER PRIMARY KEY,
+          isClosed INTEGER,
+          customerName TEXT,
+          carDescription TEXT,
+          serviceDescription TEXT,
+          creationDate TEXT,
+          closeDate TEXT,
+          vin TEXT
+        );
+        ''',
+      );
+    },
+
+    version: 1,
+  );
+
+  return database;
+}
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -21,7 +57,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: const Text('Home'),
       ),
       body: Center(
         child: Column(
