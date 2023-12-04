@@ -3,9 +3,9 @@ import 'appointmentPage.dart';
 import 'ticketPage.dart';
 import 'recallPage.dart';
 import 'contactPage.dart';
+import 'appointmentList.dart';
 
-void main() async {
-  ticketDatabase = createDatabase();
+void main() {
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
     '/': (context) => const HomeScreen(),
     '/appointment': (context) => const AppointmentPage(),
@@ -16,36 +16,6 @@ void main() async {
   }));
 }
 
-Future<Database> createDatabase() async {
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
-  WidgetsFlutterBinding.ensureInitialized();
-  final database = openDatabase(
-    join(await getDatabasesPath(), 'ticket_database.db'),
-
-    onCreate: (db, version) {
-      return db.execute(
-        '''
-        CREATE TABLE tickets (
-          ticketID INTEGER PRIMARY KEY,
-          isClosed INTEGER,
-          customerName TEXT,
-          carDescription TEXT,
-          serviceDescription TEXT,
-          creationDate TEXT,
-          closeDate TEXT,
-          vin TEXT
-        );
-        ''',
-      );
-    },
-
-    version: 1,
-  );
-
-  return database;
-}
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -53,7 +23,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Home Page'),
       ),
       body: Center(
         child: Column(
@@ -62,6 +32,11 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/appointment');
+                    },
+                    icon: const Icon(Icons.calendar_month)),
                 ElevatedButton(
                   child: const Text('Appointments'),
                   onPressed: () {
@@ -69,6 +44,11 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(width: 20),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/contact');
+                    },
+                    icon: const Icon(Icons.people)),
                 ElevatedButton(
                   child: const Text('Contacts'),
                   onPressed: () {
@@ -81,6 +61,11 @@ class HomeScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/recall');
+                    },
+                    icon: const Icon(Icons.info)),
                 ElevatedButton(
                   child: const Text('Recalls'),
                   onPressed: () {
@@ -88,6 +73,11 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(width: 20),
+                IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/ticket');
+                    },
+                    icon: const Icon(Icons.airplane_ticket)),
                 ElevatedButton(
                   child: const Text('Tickets'),
                   onPressed: () {
