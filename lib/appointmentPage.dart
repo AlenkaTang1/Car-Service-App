@@ -27,8 +27,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("selected day: ${today.toString().split(" ")[0]}"),
-            Container(
-                child: TableCalendar(
+            TableCalendar(
               headerStyle: const HeaderStyle(
                   formatButtonVisible: false, titleCentered: true),
               availableGestures: AvailableGestures.all,
@@ -37,7 +36,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
               firstDay: DateTime.utc(2010, 10, 15),
               lastDay: DateTime.utc(2030, 10, 15),
               onDaySelected: _onDaySelected,
-            )),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/appointmentList');
+              },
+              child: const Text('Appointments for Today'),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/');

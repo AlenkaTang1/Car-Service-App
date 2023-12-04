@@ -3,18 +3,14 @@ import 'appointmentPage.dart';
 import 'ticketPage.dart';
 import 'recallPage.dart';
 import 'contactPage.dart';
-import 'package:path/path.dart';
-import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-
-
-Future<Database>? ticketDatabase;
 
 void main() async {
   ticketDatabase = createDatabase();
   runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
     '/': (context) => const HomeScreen(),
     '/appointment': (context) => const AppointmentPage(),
-    '/contact': (context) => const ContactPage(),
+    '/appointmentList': (context) => TodayListScreen(),
+    '/contact': (context) => const ContactListScreen(),
     '/ticket': (context) => const TicketPage(),
     '/recall': (context) => const RecallPage(),
   }));
