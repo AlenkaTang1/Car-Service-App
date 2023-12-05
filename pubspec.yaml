@@ -41,6 +41,7 @@ dependencies:
   path: ^1.8.3
   sqflite_common_ffi: ^2.3.0+4
   sqlite3_flutter_libs: ^0.5.18
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +59,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

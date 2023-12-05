@@ -6,26 +6,37 @@ import 'recallPage.dart';
 import 'contactPage.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'dart:io';
 
 
 Future<Database>? ticketDatabase;
+Color offWhite = const Color.fromARGB(255, 237, 237, 237);
+Color darkBlue = const Color.fromARGB(255, 40, 51, 57);
 
 void main() async {
   ticketDatabase = createDatabase();
-  runApp(MaterialApp(title: 'Service App', initialRoute: '/', routes: {
-    '/': (context) => const HomeScreen(),
-    '/appointment': (context) => const AppointmentPage(),
-    '/appointmentList': (context) => TodayListScreen(),
-    '/contact': (context) => const ContactListScreen(),
-    '/ticket': (context) => const TicketPage(),
-    '/recall': (context) => const RecallPage(),
-  }));
+  runApp(MaterialApp(
+    title: 'Service App', 
+    theme: ThemeData(
+      scaffoldBackgroundColor: Color.fromARGB(255, 126, 128, 102)
+    ), 
+    initialRoute: '/', 
+    routes: {
+      '/': (context) => HomeScreen(),
+      '/appointment': (context) => const AppointmentPage(),
+      '/appointmentList': (context) => const TodayListScreen(),
+      '/contact': (context) => const ContactListScreen(),
+      '/ticket': (context) => const TicketPage(),
+      '/recall': (context) => const RecallPage(),
+    }
+  ));
 }
 
 Future<Database> createDatabase() async {
   sqfliteFfiInit();
   databaseFactory = databaseFactoryFfi;
   WidgetsFlutterBinding.ensureInitialized();
+  Directory(await getDatabasesPath()).create(recursive: true);
   final database = openDatabase(
     join(await getDatabasesPath(), 'ticket_database.db'),
 
@@ -53,56 +64,87 @@ Future<Database> createDatabase() async {
 }
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        centerTitle: true,
+        backgroundColor: darkBlue,
+        title: const Text('Home', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  child: const Text('Appointments'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/appointment');
-                  },
+      body: Align(
+        alignment: Alignment.center,
+        child: Padding(
+          padding: const EdgeInsets.all(35.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: darkBlue,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: IconButton(
+                        onPressed: () {Navigator.pushNamed(context, '/appointment');}, 
+                        icon: const Icon(Icons.calendar_month, color: Colors.white),
+                        iconSize: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: darkBlue,
+                        borderRadius: BorderRadius.circular(50.0),
+
+                      ),
+                      child: IconButton(
+                        onPressed: () {Navigator.pushNamed(context, '/contact');}, 
+                        icon: const Icon(Icons.perm_contact_calendar, color: Colors.white),
+                        iconSize: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  child: const Text('Contacts'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/contact');
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  child: const Text('Recalls'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/recall');
-                  },
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  child: const Text('Tickets'),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/ticket');
-                  },
-                ),
-              ],
-            )
-          ],
+              ),
+              const SizedBox(height: 50),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: darkBlue,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: IconButton(
+                        onPressed: () {Navigator.pushNamed(context, '/recall');}, 
+                        icon: const Icon(Icons.taxi_alert, color: Colors.white),
+                          iconSize: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: darkBlue,
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                      child: IconButton(
+                        onPressed: () {Navigator.pushNamed(context, '/ticket');}, 
+                        icon: const Icon(Icons.content_paste, color: Colors.white),
+                        iconSize: MediaQuery.of(context).size.width * 0.15,
+                      ),
+                    )
+                  ],
+                )
+              ),
+            ],
+          ),
         ),
       ),
     );

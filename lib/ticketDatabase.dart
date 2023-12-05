@@ -92,9 +92,17 @@ class DatabaseHelper {
     final db = await ticketDatabase;
     final List<Map<String, dynamic>> maps;
 
-    if (searchTerm != null) {maps = await db!.rawQuery("SELECT count(*) FROM tickets WHERE content MATCH '$searchTerm';");}
+    if (searchTerm != null) {
+      maps = await db!.rawQuery("SELECT * FROM tickets WHERE "
+        "customerName LIKE '%$searchTerm%' OR "
+        "carDescription LIKE '%$searchTerm%' OR "
+        "serviceDescription LIKE '%$searchTerm%' OR "
+        "vin LIKE '%$searchTerm%' OR "
+        "creationDate LIKE '%$searchTerm%' OR "
+        "closeDate LIKE '%$searchTerm%';"
+      );
+    }
     else {maps = await db!.query('tickets');}
-
     return List.generate(maps.length, (i) {
       return ServiceTicket(
         ticketID: maps[i]['ticketID'],

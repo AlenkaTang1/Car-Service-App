@@ -1,5 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
+import 'package:service_app/main.dart';
 
 class Contact {
   final String name;
@@ -75,13 +76,26 @@ class _ContactListScreenState extends State<ContactListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Customer CONTACT'),
+        centerTitle: true,
+        backgroundColor: darkBlue,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        title: 
+        Container(
+          padding: EdgeInsets.all(30),
+          decoration: BoxDecoration(
+            color: darkBlue
+          ),
+          child: const Text('Customer Contacts', style:TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+        ),
       ),
       body: ListView.builder(
         itemCount: contacts.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(contacts[index].name),
+            title: Text(contacts[index].name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+            ),
             onTap: () {
               Navigator.push(
                 context,
@@ -107,7 +121,12 @@ class ContactDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(contact.name),
+        centerTitle: true,
+        backgroundColor: darkBlue,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        title: Text(contact.name, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -116,18 +135,18 @@ class ContactDetailsScreen extends StatelessWidget {
           children: [
             const Text(
               'Details:',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
             const SizedBox(height: 8.0),
-            Text(contact.phone_number),
+            Text(contact.phone_number, style: TextStyle(color: Colors.white),),
             const SizedBox(height: 8.0),
-            Text(contact.email),
+            Text(contact.email, style: TextStyle(color: Colors.white)),
             const SizedBox(height: 8.0),
-            Text(contact.vehicle_info),
+            Text(contact.vehicle_info, style: TextStyle(color: Colors.white)),
             const SizedBox(height: 8.0),
-            Text(contact.rewards),
+            Text(contact.rewards, style: TextStyle(color: Colors.white)),
             const SizedBox(height: 8.0),
-            Text(contact.appointment_info),
+            Text(contact.appointment_info, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),
